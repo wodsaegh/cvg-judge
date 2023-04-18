@@ -1,0 +1,4 @@
+- tab: "Global variable"
+  testcases:
+    - expression: "GLOBAL_VAR"
+      return: "GLOBAL"

@@ -1,0 +1,78 @@
+{
+  "tabs": [
+    {
+      "name": "Feedback",
+      "runs": [
+        {
+          "contexts": [
+            {
+              "testcases": [
+                {
+                  "input": {
+                    "variable": "instance",
+                    "type": {
+                      "type": "custom",
+                      "data": "equal_checker"
+                    },
+                    "expression": {
+                      "type": "constructor",
+                      "name": "equal_checker",
+                      "arguments": [
+                        {
+                          "type": "integer",
+                          "data": 5
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "input": {
+                    "type": "function",
+                    "namespace": "instance",
+                    "name": "check",
+                    "arguments": [
+                      {
+                        "type": "integer",
+                        "data": 25
+                      }
+                    ]
+                  },
+                  "output": {
+                    "result": {
+                      "value": {
+                        "type": "boolean",
+                        "data": false
+                      }
+                    }
+                  }
+                },
+                {
+                  "input": {
+                    "type": "function",
+                    "namespace": "instance",
+                    "name": "check",
+                    "arguments": [
+                      {
+                        "type": "integer",
+                        "data": 5
+                      }
+                    ]
+                  },
+                  "output": {
+                    "result": {
+                      "value": {
+                        "type": "boolean",
+                        "data": true
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

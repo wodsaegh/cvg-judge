@@ -1,0 +1,107 @@
+{
+  "tabs": [
+    {
+      "name": "Tab",
+      "runs": [
+        {
+          "contexts": [
+            {
+              "testcases": [
+                {
+                  "input": {
+                    "type": "function",
+                    "name": "echo",
+                    "arguments": [
+                      {
+                        "type": "text",
+                        "data": "input-1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "result": {
+                      "evaluator": {
+                        "type": "specific",
+                        "evaluators": {
+                          "python": {
+                            "file": "evaluator.py"
+                          },
+                          "java": {
+                            "file": "Evaluator.java"
+                          },
+                          "kotlin": {
+                            "file": "Evaluator.kt"
+                          },
+                          "haskell": {
+                            "file": "Evaluator.hs"
+                          },
+                          "runhaskell": {
+                            "file": "Evaluator.hs"
+                          },
+                          "c": {
+                            "file": "evaluator.c"
+                          },
+                          "javascript": {
+                            "file": "evaluator.js"
+                          },
+                          "csharp": {
+                            "file": "Evaluator.cs"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "input": {
+                    "type": "function",
+                    "name": "echo",
+                    "arguments": [
+                      {
+                        "type": "text",
+                        "data": "correct"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "result": {
+                      "evaluator": {
+                        "type": "specific",
+                        "evaluators": {
+                          "python": {
+                            "file": "evaluator.py"
+                          },
+                          "java": {
+                            "file": "Evaluator.java"
+                          },
+                          "kotlin": {
+                            "file": "Evaluator.kt"
+                          },
+                          "haskell": {
+                            "file": "Evaluator.hs"
+                          },
+                          "runhaskell": {
+                            "file": "Evaluator.hs"
+                          },
+                          "c": {
+                            "file": "evaluator.c"
+                          },
+                          "javascript": {
+                            "file": "evaluator.js"
+                          },
+                          "csharp": {
+                            "file": "Evaluator.cs"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

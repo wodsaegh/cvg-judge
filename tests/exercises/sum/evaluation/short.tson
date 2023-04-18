@@ -1,0 +1,60 @@
+{
+  "tabs": [
+    {
+      "name": "Feedback",
+      "runs": [
+        {
+          "run": {
+            "input": {
+              "arguments": ["-1", "-23", "72", "84", "-38", "-61", "49", "45"],
+              "main_call": true
+            },
+            "output": {
+              "stdout": {
+                "type": "text",
+                "data": "127"
+              },
+              "exit_code": {
+                "value": 0
+              }
+            }
+          }
+        },
+        {
+          "run": {
+            "input": {
+              "arguments": [],
+              "main_call": true
+            },
+            "output": {
+              "stdout": {
+                "type": "text",
+                "data": "0"
+              },
+              "exit_code": {
+                "value": 0
+              }
+            }
+          }
+        },
+        {
+          "run": {
+            "input": {
+              "arguments": ["spam", "eggs", "bacon"],
+              "main_call": true
+            },
+            "output": {
+              "stderr": {
+                "type": "text",
+                "data": "som: ongeldige argumenten"
+              },
+              "exit_code": {
+                "value": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

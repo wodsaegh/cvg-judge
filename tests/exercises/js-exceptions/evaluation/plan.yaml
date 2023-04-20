@@ -1,4 +1,0 @@
-tabs:
-- tab: "Exceptions"
-  testcases:
-    - exception: "Valid exceptions"

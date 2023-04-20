@@ -1,1 +1,0 @@
-globalVar = "GLOBAL"

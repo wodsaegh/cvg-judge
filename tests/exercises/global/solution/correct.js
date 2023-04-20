@@ -1,1 +1,0 @@
-const GLOBAL_VAR = "GLOBAL";

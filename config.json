@@ -1,4 +1,11 @@
 {
-    "judge": "TESTed",
-    "image": "dodona-tested"
+  "image": "dodona/dodona-python",
+  "source": "solution.json",
+  "natural_language": "nl",
+  "resources": "evaluation/",
+  "judge": ".",
+  "workdir": "workdir/",
+  "memory_limit": 536870912,
+  "time_limit": 60,
+  "programming_language": "CVG"
 }

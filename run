@@ -1,7 +1,12 @@
 #!/bin/sh
 
-# Script that runs the judge inside a container that supports Python.
+# Script that runs the HTML judge inside a container.
+# 
+#   - stdin: run configuration (JSON)
+#   - stdout: evaluation results (JSON)
+#   - stderr: should be empty
+#   - exit status: should be zero
 
 DIR="$(dirname $0)"
-cd "$DIR" || exit
-python -m tested
+
+python3 "$DIR/runfile.py"

@@ -41,10 +41,8 @@ def main():
             evaluator: Optional[EvaluationModule] = EvaluationModule.build(
                 config)
             if evaluator is not None:
-                print(os.path.join(
-                    config.resources, "./solution.json"))
                 solution = json_loader(os.path.join(
-                    config.resources, "./solution.json"))
+                    config.resources, "solution.json"))
                 if not solution:
                     missing_sol_file(config.translator)
                     return

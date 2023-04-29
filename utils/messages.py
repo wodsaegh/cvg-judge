@@ -33,8 +33,7 @@ def missing_evaluator_file(translator: Translator):
     """Show the teacher a message saying that the evaluator file is missing"""
     with Message(
             permission=MessagePermission.STAFF,
-            description=translator.translate(
-                Translator.Text.MISSING_EVALUATION_FILE),
+            description="FileNotFounderror",
             format=MessageFormat.TEXT
     ):
         pass

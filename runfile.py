@@ -12,7 +12,7 @@ from utils.file_loaders import json_loader
 from validators import checks
 from validators.checks import TestSuite
 from utils.render_ready import prep_render
-from utils.messages import invalid_suites, invalid_evaluator_file, missing_create_suite, missing_evaluator_file, no_suites_found
+from utils.messages import invalid_suites, invalid_evaluator_file, missing_create_suite, missing_evaluator_file, no_suites_found, missing_sol_file
 
 
 def main():
@@ -47,7 +47,7 @@ def main():
                 solution = json_loader(os.path.join(
                     config.resources, "./solution.json"))
                 if not solution:
-                    missing_evaluator_file(config.translator)
+                    missing_sol_file(config.translator)
                     invalid_suites(judge, config)
                     return
                 # compare(sol, html_content, config.translator)

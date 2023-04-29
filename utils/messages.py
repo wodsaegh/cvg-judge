@@ -9,7 +9,8 @@ import traceback
 def invalid_suites(judge: SimpleNamespace, config: DodonaConfig):
     """Show the students a message saying that the suites were invalid"""
     with Message(
-            description=config.translator.translate(Translator.Text.INVALID_TESTSUITE_STUDENTS),
+            description=config.translator.translate(
+                Translator.Text.INVALID_TESTSUITE_STUDENTS),
             format=MessageFormat.TEXT
     ):
         pass
@@ -32,7 +33,18 @@ def missing_evaluator_file(translator: Translator):
     """Show the teacher a message saying that the evaluator file is missing"""
     with Message(
             permission=MessagePermission.STAFF,
-            description=translator.translate(Translator.Text.MISSING_EVALUATION_FILE),
+            description=translator.translate(
+                Translator.Text.MISSING_EVALUATION_FILE),
+            format=MessageFormat.TEXT
+    ):
+        pass
+
+
+def missing_sol_file(translator: Translator):
+    """Show the teacher a message saying that the evaluator file is missing"""
+    with Message(
+            permission=MessagePermission.STAFF,
+            description="The solution.json files are missing.",
             format=MessageFormat.TEXT
     ):
         pass
@@ -41,7 +53,8 @@ def missing_evaluator_file(translator: Translator):
 def missing_create_suite(translator: Translator):
     with Message(
             permission=MessagePermission.STAFF,
-            description=translator.translate(Translator.Text.MISSING_CREATE_SUITE),
+            description=translator.translate(
+                Translator.Text.MISSING_CREATE_SUITE),
             format=MessageFormat.TEXT
     ):
         pass

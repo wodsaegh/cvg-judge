@@ -39,7 +39,7 @@ class CVGSuite(BoilerplateTestSuite):
         self.cont_nodes = content["nodes"]
         self.cont_edges = content["edges"]
 
-        solution_content: str = json_loader("solution.json", shorted=False)
+        solution_content: str = json_loader("./solution.json", shorted=False)
         self.sol_nodes = solution_content["nodes"]
         self.sol_edges = solution_content["edges"]
         self.succes_tests = True

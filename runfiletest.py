@@ -47,7 +47,7 @@ def main():
                     str(json_content))
             else:
                 solution = json_loader(os.path.join(
-                    config.resources, "./solution.html"))
+                    config.resources, "./solution.json"))
                 if not solution:
                     missing_evaluator_file(config.translator)
                     invalid_suites(judge, config)

@@ -6,7 +6,7 @@ import numpy as np
 import ast
 
 
-def create_suites(content: str) -> list[TestSuite]:
+def create_suites(content: str, solution: str) -> list[TestSuite]:
     cvg = CVGSuite(content)
     cvg.make_item("Vergelijk het aantal codeblokken",
                   cvg.compare_nodeslength())

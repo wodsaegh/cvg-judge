@@ -43,8 +43,10 @@ def main():
             evaluator: Optional[EvaluationModule] = EvaluationModule.build(
                 config)
             if evaluator is not None:
+                solution = json_loader(os.path.join(
+                    config.resources, "solution.json"))
                 test_suites: List[TestSuite] = evaluator.create_suites(
-                    str(json_content))
+                    str(json_content), solution)
             else:
                 solution = json_loader(os.path.join(
                     config.resources, "./solution.json"))

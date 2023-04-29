@@ -15,7 +15,7 @@ class EvaluationModule(ModuleType):
         super().__init__(name, *args, **kwargs)
         self.config = config
 
-    def create_suites(self, content: str) -> List[TestSuite]:
+    def create_suites(self, content: str, solution: str) -> List[TestSuite]:
         """Method that we expect the TestSuite to have
         This stops PyCharm from complaining that the method doesn't exist,
         and also allows us to throw an exception in case it wasn't implemented.

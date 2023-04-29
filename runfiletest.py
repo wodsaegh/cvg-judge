@@ -20,7 +20,10 @@ def main():
     Main judge method
     """
     # Read config JSON from stdin
-    config = DodonaConfig.from_json(sys.stdin)
+    with open('config.json', 'r') as openfile:
+
+        # Reading from json file
+        config = DodonaConfig.from_json(openfile)
 
     with Judgement() as judge:
         # Counter for failed tests because this judge works a bit differently

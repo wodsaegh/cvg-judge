@@ -13,6 +13,8 @@ def create_suites(content: str) -> list[TestSuite]:
     cvg.make_item("Vergelijk het aantal pijlen", cvg.compare_edgeslength())
     cvg.make_item("Vergelijk de nodes", cvg.correct_nodes())
     cvg.make_item("Vergelijk de edges", cvg.correct_edges())
+    cvg.make_item("Vergelijk de stippel", cvg.correct_stippel())
+    cvg.make_item("Juiste CVG", cvg.correct_CVG())
 
     return [cvg]
 
@@ -27,7 +29,7 @@ class CVGSuite(BoilerplateTestSuite):
 
     sol_nodes: list
     sol_edges: list
-    succes_test: int
+    succes_tests: bool
 
     def __init__(self, content: str, check_recommended: bool = True, allow_warnings: bool = True, abort: bool = True, check_minimal: bool = False):
         super().__init__("CVG", content, check_recommended, check_minimal)
@@ -40,7 +42,7 @@ class CVGSuite(BoilerplateTestSuite):
         solution_content: str = json_loader("solution.json", shorted=False)
         self.sol_nodes = solution_content["nodes"]
         self.sol_edges = solution_content["edges"]
-        self.succes_test = 0
+        self.succes_tests = True
 
     def return_true(self) -> Check:
         def _inner(_: BeautifulSoup) -> bool:
@@ -56,14 +58,16 @@ class CVGSuite(BoilerplateTestSuite):
 
         def _inner(_: BeautifulSoup) -> bool:
 
-            self.succes_test += (len(self.sol_nodes) == len(self.cont_nodes))
+            if (self.succes_tests != False):
+                self.succes_tests = len(self.sol_nodes) == len(self.cont_nodes)
             return (len(self.sol_nodes) == len(self.cont_nodes))
         return Check(_inner)
 
     def compare_edgeslength(self) -> Check:
 
         def _inner(_: BeautifulSoup) -> bool:
-            self.succes_test += (len(self.sol_edges) == len(self.cont_edges))
+            if (self.succes_tests != False):
+                self.succes_tests = len(self.sol_edges) == len(self.cont_edges)
             return (len(self.sol_edges) == len(self.cont_edges))
         return Check(_inner)
 
@@ -72,7 +76,8 @@ class CVGSuite(BoilerplateTestSuite):
         def _inner(_: BeautifulSoup) -> bool:
             self.cont_nodes.sort()
             self.sol_nodes.sort()
-            self.succes_test += (self.sol_nodes == self.cont_nodes)
+            if (self.succes_tests != False):
+                self.succes_tests = (self.cont_nodes == self.sol_nodes)
             return (self.cont_nodes == self.sol_nodes)
 
         return Check(_inner)
@@ -102,6 +107,7 @@ class CVGSuite(BoilerplateTestSuite):
                 return False
             for i in range(len(user_edges)):
                 if user_edges[i][0] != sol_edges[i][0] or user_edges[i][1] != sol_edges[i][1]:
+                    self.succes_tests == False
                     return False
             return True
 
@@ -129,10 +135,18 @@ class CVGSuite(BoilerplateTestSuite):
             user_edges.sort()
             sol_edges.sort()
             if len(user_edges) != len(sol_edges):
+                self.succes_tests == False
                 return False
             for i in range(len(user_edges)):
                 if user_edges[i][0] != sol_edges[i][0] or user_edges[i][1] != sol_edges[i][1] or user_edges[i][2] != sol_edges[i][2]:
+                    self.succes_tests == False
                     return False
             return True
+
+        return Check(_inner)
+
+    def correct_CVG(self) -> Check:
+        def _inner(_: BeautifulSoup) -> bool:
+            return self.succes_tests
 
         return Check(_inner)

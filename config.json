@@ -1,6 +1,6 @@
 {
   "image": "dodona/dodona-python",
-  "source": "solution.json",
+  "source": "wrong.json",
   "natural_language": "nl",
   "resources": "evaluation/",
   "judge": ".",

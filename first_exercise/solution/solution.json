@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    "main: mov eax, 2 call abs",
+    "abs: push edxmov edx, eaxcmp edx, 0jns pos",
+    "pos: mov eax, edxpop edxret",
+    "neg edx",
+    "mov r, eax"
+  ],
+  "edges": [
+    {
+      "from": "main: mov eax, 2 call abs",
+      "to": "abs: push edxmov edx, eaxcmp edx, 0jns pos",
+      "dashes": false
+    },
+    {
+      "from": "main: mov eax, 2 call abs",
+      "to": "mov r, eax",
+      "dashes": true
+    },
+    {
+      "from": "abs: push edxmov edx, eaxcmp edx, 0jns pos",
+      "to": "neg edx",
+      "dashes": true
+    },
+    {
+      "from": "abs: push edxmov edx, eaxcmp edx, 0jns pos",
+      "to": "pos: mov eax, edxpop edxret",
+      "dashes": false
+    },
+    {
+      "from": "neg edx",
+      "to": "pos: mov eax, edxpop edxret",
+      "dashes": true
+    },
+    {
+      "from": "pos: mov eax, edxpop edxret",
+      "to": "mov r, eax",
+      "dashes": false
+    }
+  ]
+}

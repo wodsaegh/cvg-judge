@@ -1,8 +1,8 @@
 {
-  "image": "dodona/dodona-python",
-  "source": "wrong.json",
+  "image": "dodona/dodona-html",
+  "source": "first_exercise/solution/solution.json",
   "natural_language": "nl",
-  "resources": "evaluation/",
+  "resources": "first_exercise/evaluation/",
   "judge": ".",
   "workdir": "workdir/",
   "memory_limit": 536870912,

@@ -1,0 +1,98 @@
+html,
+body {
+    font: 11pt arial;
+}
+
+h1 {
+    font-size: 150%;
+    margin: 5px 0;
+}
+
+h2 {
+    font-size: 100%;
+    margin: 5px 0;
+}
+
+table.view {
+    width: 100%;
+}
+
+table td {
+    vertical-align: top;
+}
+
+table table {
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+}
+
+table table td {
+    vertical-align: middle;
+}
+
+input[type="text"],
+pre {
+    border: 1px solid lightgray;
+}
+
+pre {
+    margin: 0;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+#mynetwork {
+    width: 100%;
+    height: 500px;
+    border: 1px solid lightgray;
+    position:relative;
+}
+
+#message-popUp {
+        display: none;
+        position: absolute;
+        top: 25%;
+        left: 30%;
+        z-index: 999;
+        width: 250px;
+        height: 150px;
+        background-color: #e04848;
+        border-style: solid;
+        border-width: 3px;
+        border-color: darkred;
+        padding: 10px;
+        text-align: center;
+}
+
+.vis-manipulation>button {
+    user-select: none;
+}
+
+#user-interface>.vis-manipulation {
+    position: initial;
+    background: initial;
+}
+
+#instruction-listing {
+    height: 500px;
+    font-family: Georgia, serif;
+    white-space: pre;
+}
+
+div.vis-network div.vis-manipulation button.vis-button.vis-copy {
+    background-image: url("copyIcon.png");
+  }
+
+option::before {
+    content: '';
+    width: 24px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+option[data-added]::before {
+    background-image: url(checkmark.png);
+    width: 24px;
+    height: 16px;
+}

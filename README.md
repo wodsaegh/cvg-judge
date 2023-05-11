@@ -60,7 +60,9 @@ It works as follows:
 1. Put your assemblycode in a .s file
 2. Run the following command in this folder.:
 ```
-python3 AGCVG.py <inputfile.s> <architecture (att of intel)>
+python3 AGCVG.py <inputfile.s> <architecture (att or intel)>
 ```
 3. The generated solution will be present in the solution.json file.
 4. Copy your solution.json file and put it in your exercise repository.
+
+**Disclaimer:** This only works for AT&T and Intel assembly currently. ARM support is coming soon.

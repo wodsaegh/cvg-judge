@@ -57,6 +57,11 @@ Running this code with one codeblock missing in your JSON file gives following o
 **Disclaimer:** It will always be safer to generate your own control flow graphs. This tool does not 100% guarantee a correct solution. However, in most cases it will. 
 This tool is designed for teachers who want to save some time and let an automatic tool generate their control flow graphs.
 It works as follows:
+
+0. Make sure you have angr([install](https://docs.angr.io/en/latest/getting-started/installing.html)) and the assemblers for your respective architecture installed. For AT&T and intel architecture it should be automatically installed on your linux device, for ARM run the following command:
+```
+sudo aptitude install binutils-arm-linux-gnueabihf
+```
 1. Put your assemblycode in a .s file
 2. Run the following command in this folder.:
 ```

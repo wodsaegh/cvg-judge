@@ -66,7 +66,9 @@ function addsolnodes(nodelist,code_dict){
     var node = {}
     var label = ""
     for(let j = 0;j<nodelist[i].length;j++){
-      label+=(code_dict[nodelist[i][j]]) +"\n"
+
+      label+=(code_dict[nodelist[i][j]].trimStart()) +"\n"
+      
     }
     nodes.add({ id: nodelist[i].join(","), label: label,y : yval, x:xval})
     yval+=75
@@ -557,7 +559,7 @@ function init() {
 </head>
 
 <body onload="init();">
-  <h1>CVG Editor designed for Dodona</h1>
+  <h1>CFG Checker designed for Dodona</h1>
 
   <br>
 

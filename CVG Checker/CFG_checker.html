@@ -31,7 +31,13 @@ function generate_CFG(){
     return
   }
   var solution = document.getElementById("Gen_solution").value;
-  var sol_json = JSON.parse(solution);
+  try{
+    var sol_json = JSON.parse(solution);
+  } catch(error){
+    giveMessageToUser('Wrong JSON format in solution')
+    return
+  }
+  
   var code = document.getElementById("assemblycode").value;
   var code_dict = {};
   var codelist = splitCodeAtEndlines(code)

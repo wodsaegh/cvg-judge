@@ -63,11 +63,10 @@ It works as follows:
 sudo aptitude install binutils-arm-linux-gnueabihf
 ```
 1. Put your assemblycode in a .s file
-2. Run the following command in this folder.:
+2. Run the following command in this folder:
 ```
-python3 AGCVG.py <inputfile.s> <architecture (att or intel)>
+python3 generate_CFG.py <inputfile.s> <architecture (att, ARM or intel)>
 ```
 3. The generated solution will be present in the solution.json file.
-4. Copy your solution.json file and put it in your exercise repository.
-
-**Disclaimer:** This only works for AT&T and Intel assembly currently. ARM support is coming soon.
+4. Check your solution by copying it into our [CFG Checker tool](https://github.com/wodsaegh/cvg-judge/tree/main/CFG%20Checker)
+5. Copy your solution.json file and put it in your exercise repository.

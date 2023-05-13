@@ -16,6 +16,7 @@ var node_selected = false;
 var edge_selected = false;
 var editing = false;
 let doesTheUserWantDashedEdges = false;
+var CVG_generated = false;
 
 /*
  * =================================================
@@ -25,11 +26,16 @@ let doesTheUserWantDashedEdges = false;
 
 
 function generate_CFG(){
+  if(CVG_generated === true){
+    giveMessageToUser('CFG already generated. Refresh this page if you want to load another CFG.')
+    return
+  }
   var solution = document.getElementById("Gen_solution").value;
   var sol_json = JSON.parse(solution);
   var code = document.getElementById("assemblycode").value;
   var code_dict = {};
-  var codelist = code.split(/\r?\n/)
+  var codelist = splitCodeAtEndlines(code)
+  fillsolinstruct(codelist)
   for(let i = 0;i<codelist.length;i++){
     code_dict[i] = codelist[i];
   }
@@ -38,19 +44,70 @@ function generate_CFG(){
     nodelist.push(sol_json["nodes"][i].split(","))
   }
   addsolnodes(nodelist,code_dict)
+  var edgelist = []
+  for(let i = 0;i<sol_json["edges"].length;i++){
+    edgelist.push(sol_json["edges"][i])
+  }
+  addsoledges(edgelist,code_dict)
+  CVG_generated = true
 }
 
 function addsolnodes(nodelist,code_dict){
+  var xval = -100
+  var yval = -200
+  var labellist = []
   for(let i = 0;i<nodelist.length;i++){
     var node = {}
     var label = ""
     for(let j = 0;j<nodelist[i].length;j++){
       label+=(code_dict[nodelist[i][j]]) +"\n"
     }
-    console.log(label)
-    nodes.add({ id: nodelist[i].join(","), label: label })
+    nodes.add({ id: nodelist[i].join(","), label: label,y : yval, x:xval})
+    yval+=75
+    xval+=50;
   }
 }
+
+function addsoledges(edgelist,code_dict){
+    let idx=0;
+    for(let i = 0;i<edgelist.length;i++){
+        edges.add({id: idx, from : edgelist[i]["from"], to: edgelist[i]["to"], dashes: edgelist[i]["dashes"],smooth: { enabled: true, type: "curvedCW", roundness: 0.1 }})
+        idx+=1
+    }
+}
+
+function is_it_function(str) {
+  const regex = /^.+:/;
+  return regex.test(str);
+}
+
+function splitCodeAtEndlines(str) {
+  const regex = /:\s*/g;
+  const modifiedStr = str.replace(regex, ':');
+  const splitList = modifiedStr.split('\n');
+  return splitList;
+}
+
+function fillsolinstruct(solutioncode) {
+    document.getElementById("instruction-listing").style.display = "none"
+    const fragment = document.createDocumentFragment();
+    var inst_index = 0;
+    for (let i = 0;i<solutioncode.length-1;i++) {
+        const option = document.createElement("option");
+        option.innerText = solutioncode[i];
+        option.id = inst_index;
+        option.dataset.added = true
+        fragment.appendChild(option);
+        inst_index += 1;
+    }
+
+    document.getElementById("instruction-listing2").appendChild(fragment);
+    document.getElementById("instruction-listing2").style.display = "block";
+    for (let i = 0;i<fragment.length;i++){
+        console.log(fragment)
+    }
+}
+
 
 
 // convenience method to stringify a JSON object
@@ -227,7 +284,7 @@ function deleteSelected() {
     if (network.getSelection().nodes.length !== 0) {
         try {
             selected_node_id = network.getSelection().nodes[0];
-            var instructs = document.getElementById("instruction-listing");
+            var instructs = document.getElementById("instruction-listing2");
             const instr_ids = network.getSelection().nodes[0].split(",");
             for (let i = 0; i < instr_ids.length; i++) {
                 delete instructs[instr_ids[i]].dataset.added;
@@ -249,7 +306,7 @@ function deleteSelected() {
 }
 
 function addNode() {
-    const selected = Array.from(document.querySelectorAll("#instruction-listing option:checked"));
+    const selected = Array.from(document.querySelectorAll("#instruction-listing2 option:checked"));
     if (selected.length === 0) {
         giveMessageToUser("Niets geselecteerd");
         return;
@@ -315,57 +372,45 @@ function copySolution() {
  */
 
 function initDemoGraph() {
-    nodes.add([
-        { id: 501, x: -200, y: -100, label: "main: mov eax, 2 \ncall abs" },
-        { id: 502, x: 0, y: 0, label: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos" },
-        { id: 503, x: 100, y: -100, label: "neg edx" },
-        { id: 504, x: 200, y: 0, label: "pos: mov eax, edx\npop edx\nret" },
-        { id: 505, x: 0, y: 100, label: "mov r, eax" },
-    ]);
-    edges.add([
-        { id: 501, from: 501, to: 502, dashes: false },
-        { id: 502, from: 501, to: 505, dashes: true },
-        { id: 503, from: 502, to: 503, dashes: true },
-        { id: 504, from: 502, to: 504, dashes: false },
-        { id: 505, from: 503, to: 504, dashes: true },
-        { id: 506, from: 504, to: 505, dashes: false },
-    ]);
-    sol_edges.add([
-        {
-            id: 501,
-            from: "main: mov eax, 2 \ncall abs",
-            to: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos",
-            dashes: false,
-        },
-        { id: 502, from: "main: mov eax, 2 \ncall abs", to: "mov r, eax", dashes: true },
-        { id: 503, from: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos", to: "neg edx", dashes: true },
-        {
-            id: 504,
-            from: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos",
-            to: "pos: mov eax, edx\npop edx\nret",
-            dashes: false,
-        },
-        { id: 505, from: "neg edx", to: "pos: mov eax, edx\npop edx\nret", dashes: true },
-        { id: 506, from: "pos: mov eax, edx\npop edx\nret", to: "mov r, eax", dashes: false },
-    ]);
+    // nodes.add([
+    //     { id: 501, x: -200, y: -100, label: "main: mov eax, 2 \ncall abs" },
+    //     { id: 502, x: 0, y: 0, label: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos" },
+    //     { id: 503, x: 100, y: -100, label: "neg edx" },
+    //     { id: 504, x: 200, y: 0, label: "pos: mov eax, edx\npop edx\nret" },
+    //     { id: 505, x: 0, y: 100, label: "mov r, eax" },
+    // ]);
+    // edges.add([
+    //     { id: 501, from: 501, to: 502, dashes: false },
+    //     { id: 502, from: 501, to: 505, dashes: true },
+    //     { id: 503, from: 502, to: 503, dashes: true },
+    //     { id: 504, from: 502, to: 504, dashes: false },
+    //     { id: 505, from: 503, to: 504, dashes: true },
+    //     { id: 506, from: 504, to: 505, dashes: false },
+    // ]);
+    // sol_edges.add([
+    //     {
+    //         id: 501,
+    //         from: "main: mov eax, 2 \ncall abs",
+    //         to: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos",
+    //         dashes: false,
+    //     },
+    //     { id: 502, from: "main: mov eax, 2 \ncall abs", to: "mov r, eax", dashes: true },
+    //     { id: 503, from: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos", to: "neg edx", dashes: true },
+    //     {
+    //         id: 504,
+    //         from: "abs: push edx\nmov edx, eax\ncmp edx, 0\njns pos",
+    //         to: "pos: mov eax, edx\npop edx\nret",
+    //         dashes: false,
+    //     },
+    //     { id: 505, from: "neg edx", to: "pos: mov eax, edx\npop edx\nret", dashes: true },
+    //     { id: 506, from: "pos: mov eax, edx\npop edx\nret", to: "mov r, eax", dashes: false },
+    // ]);
 }
 
 // Example code taken from https://github.com/wodsaegh/vop-dodona/blob/master/exercise/narayana/solution/correctx86-32-intel.s
 // In the future this should come from Dodona
-const code = `narayana: movl	4(%esp), %edi
-movl	$0, %eax
-call	narayana_hulp
-ret
-narayana_hulp: cmpl	$2, %edi
-jg	.L4
-incl	%eax
-ret
-.L4: decl	%edi
-call	narayana_hulp
-subl	$2, %edi
-call	narayana_hulp
-addl	$3, %edi
-ret`;
+var code = `Code will be filled in
+after CFG is generated`;
 
 /*
  * =================================================
@@ -398,7 +443,7 @@ function registerEventListeners() {
 }
 
 function fillInstructionListing() {
-    const fragment = document.createDocumentFragment();
+    fragment = document.createDocumentFragment();
     var inst_index = 0;
     for (const line of code.split("\n")) {
         const option = document.createElement("option");
@@ -562,8 +607,10 @@ function init() {
           <div id="mynetwork"></div>
         </td>
         <td><select id="instruction-listing" multiple></select></td>
+        <td><select id="instruction-listing2" multiple style = "display:none"></select></td>
       </tr>
     </table>
+
 
 
     <h1>View</h1>

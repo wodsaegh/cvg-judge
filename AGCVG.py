@@ -126,12 +126,20 @@ if __name__ == "__main__":
             with open(writefile, "w") as file2:
                 file2.write(".intel_syntax noprefix\n" +
                             solution_content + "\n")
+            proc = subprocess.run(f"as {writefile} -o runcode", shell=True)
         elif sys.argv[2].lower() == "att":
             with open(writefile, "w") as file2:
                 file2.write(solution_content)
+            proc = subprocess.run(f"as {writefile} -o runcode", shell=True)
+        elif sys.argv[2].lower() == "arm":
+            with open(writefile, "w") as file2:
+                file2.write(solution_content)
+            proc = subprocess.run(
+                f"arm-linux-gnueabihf-as {writefile} -o runcode", shell=True)
+
         else:
-            print("ERROR:Wrong architecture\nCorrect architectures: intel, ATT (=AT&T)")
-        proc = subprocess.run(f"as {writefile} -o runcode", shell=True)
+            print(
+                "ERROR:Wrong architecture\nCorrect architectures: intel, ATT (=AT&T), ARM")
 
     except:
         print("ERROR:No architecture given.\nCorrect usage: python3 generateCVG.py <inputfile> <architecture> ")

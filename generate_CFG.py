@@ -1,6 +1,4 @@
 import angr
-import archinfo
-import networkx as nx
 import matplotlib.pyplot as plt
 import json
 import subprocess

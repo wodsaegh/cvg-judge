@@ -80,14 +80,19 @@ def create_nodes(cfg, instr_list):
     for node in cfg.nodes():
         nodeinsns = get_insns(node, instr_list)
         inslist = nodeinsns.split(",")
-        for i in range(len(inslist)):  # needed for nodes that do not end in return
-            if (",".join(inslist[i:]) in nodelist):
-                nodeinsns = ",".join(inslist[:i])
-                extra_edges.append(
-                    {"dashes": True, "from": nodeinsns, "to": ",".join(inslist[i:])})
-                changed_nodes[get_insns(node, instr_list)
-                              ] = ",".join(inslist[:i])
         nodelist.append(nodeinsns)
+    for j in range(len(nodelist)):  # needed for nodes that do not end in return
+        copynodes = nodelist.copy()
+        copynodes.remove(nodelist[j])
+        for i in range(len(nodelist[j])):
+            if (nodelist[j][i:] in copynodes):
+                nodeinsns = nodelist[j][i:]
+                extra_edges.append(
+                    {"dashes": True, "from": nodelist[j][:i-1], "to": nodelist[j][i:]})
+                changed_nodes[nodelist[j]] = nodelist[j][:i-1]
+                nodelist.append(nodelist[j][:i-1])
+                nodelist.remove(nodelist[j])
+
     return nodelist, extra_edges, changed_nodes
 
 
@@ -111,6 +116,7 @@ def create_edges(cfg, instr_list, changed_nodes):
         json_edge = json.dumps(edge, indent=3)
         if (edge["from"] not in changed_nodes.keys()):
             edges.append(edge)
+
     return edges
 
 

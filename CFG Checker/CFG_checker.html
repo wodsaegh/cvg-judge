@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Vis Network | Data | DataSet</title>
+  <title>CFG Checker</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.5/standalone/umd/vis-network.min.js"
@@ -66,6 +66,7 @@ function addsolnodes(nodelist,code_dict){
     var node = {}
     var label = ""
     for(let j = 0;j<nodelist[i].length;j++){
+        console.log(nodelist[i][j])
 
       label+=(code_dict[nodelist[i][j]].trimStart()) +"\n"
       

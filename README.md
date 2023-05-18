@@ -2,7 +2,7 @@
 This repository was made to allow educators to create control flow graph exercises for Dodona. Please note, this judge has a very specific application which may not suit your needs. Students will be given a set of assembly instructions, they will have to use this instructions in the CFG Builder to create a correct control flow graph.
 
 ## Exercise Structure
-When building your own exercises, please follow the structure specified below. The `evaluation` folder is made available to the judge and requires both a `program.out` file and an `output.txt` file.
+When building your own exercises, please follow the structure specified below. The `evaluation` folder is made available to the judge.
 
 ```
 +-- exercise
